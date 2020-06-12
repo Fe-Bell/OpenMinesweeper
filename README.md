@@ -4,11 +4,11 @@ This is an open source minesweeper game developed as a simple use case for WPF a
 Currently, this application is divided in the following projects:
 * OpenMinesweeper.Core
 
-  Contains some core game logic, such as creating the cells/mines for the player. This was created using .NET Standard 2.0.
+  Contains some core game logic, such as creating the cells/mines for the player. This was created using .NET Standard 2.0. This project is cross-platform.
 
 * OpenMinesweeper.NET
 
-  Produces a WPF GUI application written with .NET Core 3.1. This makes use of the excellent [MVVMLight](https://github.com/lbugnion/mvvmlight), a cross-platform MVVM toolkit.
+  Produces a WPF GUI application written with .NET Core 3.1. This makes use of the excellent [MVVMLight](https://github.com/lbugnion/mvvmlight), a cross-platform MVVM toolkit. This project is Windows-only.
 
 # Build requirements
 * Visual Studio 2019 Community or higher
