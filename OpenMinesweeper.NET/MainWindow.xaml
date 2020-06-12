@@ -13,12 +13,12 @@
         Title="OpenMinesweeper" Height="500" Width="500">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="_File">
+            <MenuItem Header="_Game">
                 <MenuItem Header="_New" Command="{Binding NewGame}" />
-                <MenuItem Header="_Open" />
-                <MenuItem Header="_Save" />
+                <!--<MenuItem Header="_Open" />
+                <MenuItem Header="_Save" />-->
                 <Separator />
-                <MenuItem Header="_Exit" />
+                <MenuItem x:Name="ExitMenuItem" Header="_Exit" Click="ExitMenuItem_Click"  />
             </MenuItem>
         </Menu>
 
