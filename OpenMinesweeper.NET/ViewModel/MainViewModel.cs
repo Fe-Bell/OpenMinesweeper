@@ -1,6 +1,8 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using OpenMinesweeper.Core;
+using OpenMinesweeper.NET.Utils;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -24,22 +26,31 @@ namespace OpenMinesweeper.NET.ViewModel
         }
 
         public event EventHandler OnGameOver;
+        public event EventHandler OnGameWon;
 
         public MainViewModel(MinesweeperCore core)
         {
             this.core = core;
 
             GameGridVM = new GameGridViewModel();
-            GameGridVM.PropertyChanged += GameGridVM_PropertyChanged;
 
             NewGame = new RelayCommand(() => NewGameExecute(), () => true);
+
+            Messenger.Default.Register<SystemMessage>(this, (action) => OnSystemMessageReceived(action));
         }
 
-        private void GameGridVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void OnSystemMessageReceived(SystemMessage message)
         {
-            if(e.PropertyName == "GameOver")
+            if(message.Target == GetType())
             {
-                OnGameOver?.Invoke(this, null);
+                if(message.Message == "GameOver")
+                {
+                    OnGameOver?.Invoke(this, null);
+                }
+                else if (message.Message == "GameWon")
+                {
+                    OnGameWon?.Invoke(this, null);
+                }
             }
         }
 

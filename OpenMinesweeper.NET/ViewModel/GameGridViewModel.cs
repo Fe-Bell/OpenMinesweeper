@@ -1,19 +1,24 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
 using OpenMinesweeper.Core;
+using OpenMinesweeper.NET.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Windows.Ink;
-using System.Windows.Shapes;
 
 namespace OpenMinesweeper.NET.ViewModel
 {
+    /// <summary>
+    /// Represents a game grid for the GUI.
+    /// </summary>
     public class GameGridViewModel : ObservableObject
     {
         private ObservableCollection<CellViewModel> cells = new ObservableCollection<CellViewModel>();
+        /// <summary>
+        /// A collection of cells in the current game.
+        /// </summary>
         public ObservableCollection<CellViewModel> Cells 
         { 
             get => cells; 
@@ -25,6 +30,9 @@ namespace OpenMinesweeper.NET.ViewModel
         }
 
         private uint lineNumber = 0;
+        /// <summary>
+        /// The number of rows in the grid.
+        /// </summary>
         public uint LineNumber
         {
             get => lineNumber;
@@ -36,6 +44,9 @@ namespace OpenMinesweeper.NET.ViewModel
         }
 
         private uint columnNumber = 0;
+        /// <summary>
+        /// The number of columns of the grid.
+        /// </summary>
         public uint ColumnNumber
         {
             get => columnNumber;
@@ -46,22 +57,18 @@ namespace OpenMinesweeper.NET.ViewModel
             }
         }
 
-        private bool gameOver = false;
-        public bool GameOver
-        {
-            get => gameOver;
-            set
-            {
-                gameOver = value;
-                RaisePropertyChanged();
-            }
-        }
-
+        /// <summary>
+        /// Creates a new instance of GameGridViewModel. 
+        /// </summary>
         public GameGridViewModel()
         {
             Cells = new ObservableCollection<CellViewModel>();
         }
 
+        /// <summary>
+        /// Reloads the GameGridViewModel with a new game grid.
+        /// </summary>
+        /// <param name="gameGrid">A base game grid from the OpenMinesweeper.Core</param>
         public void Load(GameGrid gameGrid)
         {
             foreach(var cell in Cells)
@@ -79,36 +86,56 @@ namespace OpenMinesweeper.NET.ViewModel
             }
         }
 
+        /// <summary>
+        /// Property changed handler for each cell.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Cell_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if(e.PropertyName == "Clicked")
             {
                 CellViewModel cell = sender as CellViewModel;
-                if(cell.HasMine)
+
+                //Checks if there are still mines in the game
+                if (Cells.Any(c => c.HasMine))
                 {
-                    cell.Message = "BOOM!";
-                    //Game Over
-                    GameOver = true;
+                    //If the clicked cell has a mine, then it is game over
+                    if (cell.HasMine)
+                    {
+                        cell.Message = "BOOM!";
+                        //Game Over
+                        Messenger.Default.Send(new SystemMessage(this, typeof(MainViewModel), "GameOver"));
+                    }
+                    //Otherwise, go through its neighbors and continue
+                    else
+                    {
+                        cell.Visited = true;
+
+                        //Searches the neighbors collection for the neighbors that have mines in them
+                        //When a mine is found it increments a counter that is shown inside the cell                
+                        var neighbors = FindNeighbors(cell);
+                        var minesAroundCell = neighbors.Where(c => c.HasMine).Count();
+
+                        cell.Message = Convert.ToString(minesAroundCell);
+                    }
                 }
+                //If no mines were found, the player has won the game.
                 else
                 {
                     cell.Visited = true;
 
-                    uint minesAroundCell = 0;
-                    var neighbors = FindNeighbors(cell);
-                    foreach (var c in neighbors)
-                    {
-                        if (c.HasMine)
-                        {
-                            minesAroundCell++;
-                        }
-                    }
-
-                    cell.Message = Convert.ToString(minesAroundCell);
+                    //Game Won
+                    Messenger.Default.Send(new SystemMessage(this, typeof(MainViewModel), "GameWon"));
                 }
             }
         }
 
+        /// <summary>
+        /// Returns a maximun of 8 surrounding neighbors of a cell.
+        /// </summary>
+        /// <param name="cell"></param>
+        /// <returns></returns>
         private ICollection<CellViewModel> FindNeighbors(CellViewModel cell)
         {
             List<CellViewModel> _cells = new List<CellViewModel>();

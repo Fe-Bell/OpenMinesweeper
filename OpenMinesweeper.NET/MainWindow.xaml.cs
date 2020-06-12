@@ -26,6 +26,20 @@ namespace OpenMinesweeper.NET
             InitializeComponent();
 
             (DataContext as MainViewModel).OnGameOver += MainWindow_OnGameOver;
+            (DataContext as MainViewModel).OnGameWon += MainWindow_OnGameWon;
+        }
+
+        private void MainWindow_OnGameWon(object sender, EventArgs e)
+        {
+            var rc = MessageBox.Show("GAME WON!\nContinue?", "OpenMinesweeper", MessageBoxButton.YesNo);
+            if (rc == MessageBoxResult.Yes)
+            {
+                (DataContext as MainViewModel).NewGame.Execute(null);
+            }
+            else
+            {
+                ExitGame();
+            }
         }
 
         private void MainWindow_OnGameOver(object sender, EventArgs e)
@@ -37,11 +51,16 @@ namespace OpenMinesweeper.NET
             }
             else
             {
-                Application.Current.Shutdown();
+                ExitGame();
             }
         }
 
         private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            ExitGame();
+        }
+
+        private void ExitGame()
         {
             Application.Current.Shutdown();
         }
