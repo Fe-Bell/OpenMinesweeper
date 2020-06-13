@@ -153,34 +153,30 @@ namespace OpenMinesweeper.NET.ViewModel
             {
                 CellViewModel cell = sender as CellViewModel;
 
-                //Checks if there are still mines in the game
-                if (Cells.Any(c => c.HasMine))
+                //If the clicked cell has a mine, then it is game over
+                if (cell.HasMine)
                 {
-                    //If the clicked cell has a mine, then it is game over
-                    if (cell.HasMine)
-                    {
-                        cell.Message = "BOOM!";
-                        //Game Over
-                        Messenger.Default.Send(new SystemMessage(this, typeof(MainViewModel), "GameOver"));
-                    }
-                    //Otherwise, go through its neighbors and continue
-                    else
-                    {
-                        cell.Visited = true;
-
-                        //Searches the neighbors collection for the neighbors that have mines in them
-                        //When a mine is found it increments a counter that is shown inside the cell                
-                        var neighbors = FindNeighbors(cell);
-                        var minesAroundCell = neighbors.Where(c => c.HasMine).Count();
-
-                        cell.Message = Convert.ToString(minesAroundCell);
-                    }
+                    cell.Message = "BOOM!";
+                    //Game Over
+                    Messenger.Default.Send(new SystemMessage(this, typeof(MainViewModel), "GameOver"));
                 }
-                //If no mines were found, the player has won the game.
+                //Otherwise, go through its neighbors and continue
                 else
                 {
                     cell.Visited = true;
 
+                    //Searches the neighbors collection for the neighbors that have mines in them
+                    //When a mine is found it increments a counter that is shown inside the cell                
+                    var neighbors = FindNeighbors(cell);
+                    var minesAroundCell = neighbors.Where(c => c.HasMine).Count();
+
+                    cell.Message = Convert.ToString(minesAroundCell);
+                }
+
+                //Checks if all the cells that don't have mines have already been visited.
+                //If this is true, the player won the game.
+                if (Cells.Where(c => !c.HasMine).All(c => c.Visited))
+                {
                     //Game Won
                     Messenger.Default.Send(new SystemMessage(this, typeof(MainViewModel), "GameWon"));
                 }
