@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using OpenMinesweeper.Core.Utils;
 
 namespace OpenMinesweeper.NET.ViewModel
 {
@@ -71,19 +72,74 @@ namespace OpenMinesweeper.NET.ViewModel
         /// <param name="gameGrid">A base game grid from the OpenMinesweeper.Core</param>
         public void Load(GameGrid gameGrid)
         {
-            foreach(var cell in Cells)
-            {
-                cell.PropertyChanged -= Cell_PropertyChanged;
-            }
+            //Detach property changed event handling.
+            Cells.ForEach(c => c.PropertyChanged -= Cell_PropertyChanged);
 
-            LineNumber = Convert.ToUInt32(Math.Sqrt(gameGrid.Cells.Count()));
-            ColumnNumber = LineNumber;
-
+            //Creates new UI collection of cells.
+            LineNumber = gameGrid.LineCount;
+            ColumnNumber = gameGrid.ColumnCount;
             Cells = new ObservableCollection<CellViewModel>(gameGrid.Cells.Select(x => new CellViewModel(x.Position.Item1, x.Position.Item2, x.Occupied)));
-            foreach (var cell in Cells)
+
+            //Attach property changed event handling.
+            Cells.ForEach(c => c.PropertyChanged += Cell_PropertyChanged);
+        }
+
+        /// <summary>
+        /// Load a game state.
+        /// </summary>
+        /// <param name="state">Binary string representing which cells were previously clicked by the player.</param>
+        public void LoadState(string state)
+        {
+            //Translate cells binary string to 2D array of cells.
+            uint ln = 0, col = 0;
+            foreach (var c in state)
             {
-                cell.PropertyChanged += Cell_PropertyChanged;
+                var cell = Cells.FirstOrDefault(x => x.Line == ln && x.Column == col);
+                if(cell != null)
+                {
+                    //cell.Visited = c != '0';
+                    if(c != '0')
+                    {
+                        cell.Mark.Execute(null);
+                    }                 
+                }
+
+                if (col < ColumnNumber)
+                {
+                    col++;
+                }
+                else
+                {
+                    ln++;
+                    col = 0;
+                }
             }
+        }
+
+        /// <summary>
+        /// Returns a string representing if the cells have been visited or not.
+        /// </summary>
+        /// <returns></returns>
+        public string GetUIState()
+        {
+            string state = string.Empty;
+            Cells.ForEach(c => state += c.Visited ? "1" : "0");
+
+            return state;
+        }
+
+        /// <summary>
+        /// Converts this viewmodel into its model (GameGrid).
+        /// </summary>
+        /// <returns></returns>
+        public GameGrid ToGameGrid()
+        {
+            GameGrid gameGrid = new GameGrid();
+            gameGrid.ColumnCount = ColumnNumber;
+            gameGrid.LineCount = LineNumber;
+            gameGrid.Cells = new List<Cell>(Cells.Select(c => new Cell(c.Line, c.Column, c.HasMine)));
+
+            return gameGrid;
         }
 
         /// <summary>

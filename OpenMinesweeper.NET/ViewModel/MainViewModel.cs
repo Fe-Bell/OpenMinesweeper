@@ -35,6 +35,7 @@ namespace OpenMinesweeper.NET.ViewModel
             GameGridVM = new GameGridViewModel();
 
             NewGame = new RelayCommand(() => NewGameExecute(), () => true);
+            SaveGame = new RelayCommand<object>((obj) => SaveGameExecute(obj), (obj) => true);
 
             Messenger.Default.Register<SystemMessage>(this, (action) => OnSystemMessageReceived(action));
         }
@@ -51,6 +52,20 @@ namespace OpenMinesweeper.NET.ViewModel
                 {
                     OnGameWon?.Invoke(this, null);
                 }
+                else if (message.Message == "LoadedGameState")
+                {
+                    GameState gameState = message.ExtendedData as GameState;
+                    if(gameState != null)
+                    {
+                        string state = string.Empty;
+                        GameGrid gameGrid = core.FromGameState(gameState, out state);
+                        if(gameGrid != null)
+                        {
+                            GameGridVM.Load(gameGrid);
+                            GameGridVM.LoadState(state);
+                        }
+                    }
+                }
             }
         }
 
@@ -61,6 +76,52 @@ namespace OpenMinesweeper.NET.ViewModel
         {
             var newGameGrid = core.NewGame(4);
             GameGridVM.Load(newGameGrid);
+        }
+
+        public ICommand SaveGame { get; private set; }
+        private void SaveGameExecute(object parameters)
+        {
+            if (parameters is null) return;
+
+            object[] input = parameters as object[];
+            if (input.Length < 2) return;
+
+            string folder = input[0] as string;
+            if (string.IsNullOrEmpty(folder)) return;
+
+            string filename = input[1] as string;
+            if (string.IsNullOrEmpty(filename)) return;
+
+            string current_state = GameGridVM.GetUIState();
+            if (string.IsNullOrEmpty(current_state)) return;
+
+            GameGrid gameGrid = GameGridVM.ToGameGrid();
+            if (gameGrid is null) return;
+
+            core.SaveGame(gameGrid, current_state, folder, filename);
+        }
+
+        public ICommand LoadGame { get; private set; }
+        private void LoadGameExecute(object parameters)
+        {
+            //if (parameters is null) return;
+
+            //object[] input = parameters as object[];
+            //if (input.Length < 2) return;
+
+            //string folder = input[0] as string;
+            //if (string.IsNullOrEmpty(folder)) return;
+
+            //string filename = input[1] as string;
+            //if (string.IsNullOrEmpty(filename)) return;
+
+            //string current_state = GameGridVM.GetUIState();
+            //if (string.IsNullOrEmpty(current_state)) return;
+
+            //GameGrid gameGrid = GameGridVM.ToGameGrid();
+            //if (gameGrid is null) return;
+
+            //core.SaveGame(gameGrid, current_state, folder, filename);
         }
 
         #endregion

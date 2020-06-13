@@ -6,6 +6,8 @@ namespace OpenMinesweeper.Core
 {
     public class GameGrid
     {
+        public uint LineCount { get; set; }
+        public uint ColumnCount { get; set; }
         public ICollection<Cell> Cells { get; set; }
 
         public GameGrid()
@@ -24,6 +26,7 @@ namespace OpenMinesweeper.Core
 
             //Finds out the number of itens per line and column
             var cells_per_line = Convert.ToUInt32(Math.Sqrt(gridSize));
+            LineCount = ColumnCount = cells_per_line;
 
             //If Cells is already populated, clears its contents.
             if (Cells.Count != 0)
@@ -33,9 +36,9 @@ namespace OpenMinesweeper.Core
 
             //Uses a randomizer to create the table of cells
             Random random = new Random();
-            for(uint line = 0; line < cells_per_line; line++)
+            for(uint line = 0; line < LineCount; line++)
             {
-                for (uint column = 0; column < cells_per_line; column++)
+                for (uint column = 0; column < ColumnCount; column++)
                 {
                     bool occupied = random.NextDouble() > 0.5;
                     var cell = new Cell(line, column, occupied);

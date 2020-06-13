@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
+using OpenMinesweeper.Core;
 
 namespace OpenMinesweeper.NET
 {
@@ -21,12 +23,33 @@ namespace OpenMinesweeper.NET
     /// </summary>
     public partial class MainWindow : Window
     {
+        GameStatesWindow gameStatesWindow = null;
+
         public MainWindow()
         {
             InitializeComponent();
 
+            gameStatesWindow = new GameStatesWindow();
+
             (DataContext as MainViewModel).OnGameOver += MainWindow_OnGameOver;
             (DataContext as MainViewModel).OnGameWon += MainWindow_OnGameWon;
+
+            ViewModelLocator.LoadGameStateVM.PropertyChanged += LoadGameStateVM_PropertyChanged;
+
+            Closing += MainWindow_Closing;
+        }
+
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            gameStatesWindow.Close();
+        }
+
+        private void LoadGameStateVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if(e.PropertyName == "LoadedGameState")
+            {
+                gameStatesWindow.Hide();
+            }
         }
 
         private void MainWindow_OnGameWon(object sender, EventArgs e)
@@ -63,6 +86,32 @@ namespace OpenMinesweeper.NET
         private void ExitGame()
         {
             Application.Current.Shutdown();
+        }
+
+        private void SaveMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
+            saveFileDialog.Filter = "Database Files (*.db)|*.db|All files (*.*)|*.*";
+            saveFileDialog.InitialDirectory = Environment.CurrentDirectory;
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                object[] parameter = { System.IO.Path.GetDirectoryName(saveFileDialog.FileName), saveFileDialog.SafeFileName };
+                (DataContext as MainViewModel).SaveGame.Execute(parameter);
+            }
+        }
+
+        private void LoadMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
+            openFileDialog.Filter = "Database Files (*.db)|*.db|All files (*.*)|*.*";
+            openFileDialog.InitialDirectory = Environment.CurrentDirectory;
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                (gameStatesWindow.DataContext as LoadGameStateViewModel).UpdateGameStates(openFileDialog.FileName);
+                gameStatesWindow.Show();
+            }
         }
     }
 }
