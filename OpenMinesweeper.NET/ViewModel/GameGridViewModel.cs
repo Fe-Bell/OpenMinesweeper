@@ -165,7 +165,7 @@ namespace OpenMinesweeper.NET.ViewModel
                 //If the clicked cell has a mine, then it is game over
                 if (cell.HasMine)
                 {
-                    cell.Message = "BOOM!";
+                    cell.Message = "#";
                     //Game Over
                     Messenger.Default.Send(new SystemMessage(this, typeof(MainViewModel), "GameOver"));
                 }

@@ -17,7 +17,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <ToggleButton MinHeight="20" MinWidth="20" Command="{Binding Mark}" Grid.Row="{Binding Line}" Grid.Column="{Binding Column}" IsChecked="{Binding Visited, Mode=OneWay}">
+                    <ToggleButton MinHeight="20" MinWidth="20" Padding="-8,-8" Command="{Binding Mark}" Grid.Row="{Binding Line}" Grid.Column="{Binding Column}" IsChecked="{Binding Visited, Mode=OneWay}">
                         <ToggleButton.Style>
                             <Style TargetType="{x:Type ToggleButton}">
                                 <Style.Triggers>
@@ -29,7 +29,7 @@
                         </ToggleButton.Style>
 
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <TextBlock Text="{Binding Message}" FontSize="24">
+                            <TextBlock Text="{Binding Message}" FontSize="20">
                                 <TextBlock.Style>
                                     <Style TargetType="{x:Type TextBlock}">
                                         <Setter Property="Visibility" Value="Hidden" />
