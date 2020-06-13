@@ -114,12 +114,12 @@ namespace OpenMinesweeper.Core
             string line_count_str = gameState.Grid.Substring(0, 8);
             string column_count_str = gameState.Grid.Substring(8, 8);
             string cells_str = gameState.Grid.Substring(16);
+            state = gameState.State;
 
             GameGrid gameGrid = new GameGrid();
             gameGrid.LineCount = Convert.ToUInt32(line_count_str, 2);
             gameGrid.ColumnCount = Convert.ToUInt32(column_count_str, 2);
-            state = gameState.State;
-        
+             
             //Translate cells binary string to 2D array of cells.
             uint ln = 0, col = 0;
             foreach(var c in cells_str)
@@ -129,7 +129,7 @@ namespace OpenMinesweeper.Core
                 cell.Position = new Tuple<uint, uint>(ln, col);
                 gameGrid.Cells.Add(cell);
 
-                if (col < gameGrid.ColumnCount)
+                if (col < gameGrid.ColumnCount - 1)
                 {
                     col++;
                 }

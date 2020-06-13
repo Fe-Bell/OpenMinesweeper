@@ -10,8 +10,8 @@ namespace OpenMinesweeper.NET.ViewModel
     public class CellViewModel : ObservableObject
     {
         private uint line = 0;
-        public uint Line 
-        { 
+        public uint Line
+        {
             get => line;
             set
             {
@@ -32,14 +32,14 @@ namespace OpenMinesweeper.NET.ViewModel
         }
 
         private bool hasMine = false;
-        public bool HasMine 
-        { 
+        public bool HasMine
+        {
             get => hasMine;
-            set 
+            set
             {
                 hasMine = value;
                 RaisePropertyChanged();
-            } 
+            }
         }
 
         private bool visited = false;
@@ -74,6 +74,8 @@ namespace OpenMinesweeper.NET.ViewModel
                 RaisePropertyChanged();
             }
         }
+
+        public ICollection<CellViewModel> Neighbors { get; set; }
 
         public CellViewModel()
         {

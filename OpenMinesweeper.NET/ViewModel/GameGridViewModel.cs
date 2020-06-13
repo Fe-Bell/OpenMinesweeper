@@ -79,6 +79,15 @@ namespace OpenMinesweeper.NET.ViewModel
             LineNumber = gameGrid.LineCount;
             ColumnNumber = gameGrid.ColumnCount;
             Cells = new ObservableCollection<CellViewModel>(gameGrid.Cells.Select(x => new CellViewModel(x.Position.Item1, x.Position.Item2, x.Occupied)));
+            foreach (var cell in Cells)
+            {
+                //Searches the neighbors collection for the neighbors that have mines in them
+                //When a mine is found it increments a counter that is shown inside the cell                
+                cell.Neighbors = FindNeighbors(cell);
+                var minesAroundCell = cell.Neighbors.Where(c => c.HasMine).Count();
+
+                cell.Message = Convert.ToString(minesAroundCell);
+            }
 
             //Attach property changed event handling.
             Cells.ForEach(c => c.PropertyChanged += Cell_PropertyChanged);
@@ -104,7 +113,7 @@ namespace OpenMinesweeper.NET.ViewModel
                     }                 
                 }
 
-                if (col < ColumnNumber)
+                if (col < ColumnNumber - 1)
                 {
                     col++;
                 }
@@ -164,13 +173,6 @@ namespace OpenMinesweeper.NET.ViewModel
                 else
                 {
                     cell.Visited = true;
-
-                    //Searches the neighbors collection for the neighbors that have mines in them
-                    //When a mine is found it increments a counter that is shown inside the cell                
-                    var neighbors = FindNeighbors(cell);
-                    var minesAroundCell = neighbors.Where(c => c.HasMine).Count();
-
-                    cell.Message = Convert.ToString(minesAroundCell);
                 }
 
                 //Checks if all the cells that don't have mines have already been visited.
@@ -192,22 +194,26 @@ namespace OpenMinesweeper.NET.ViewModel
         {
             List<CellViewModel> _cells = new List<CellViewModel>();
 
-            var right = Cells.FirstOrDefault(c => c.Column == cell.Column + 1 && c.Line == cell.Line);
-            if (right != null) _cells.Add(right);
-            var left = Cells.FirstOrDefault(c => c.Column == cell.Column - 1 && c.Line == cell.Line);
-            if (left != null) _cells.Add(left);
-            var bottom = Cells.FirstOrDefault(c => c.Column == cell.Column && c.Line == cell.Line + 1);
-            if (bottom != null) _cells.Add(bottom);
-            var top = Cells.FirstOrDefault(c => c.Column == cell.Column && c.Line == cell.Line - 1);
-            if (top != null) _cells.Add(top);
-            var top_right = Cells.FirstOrDefault(c => c.Column == cell.Column + 1 && c.Line == cell.Line - 1);
-            if (top_right != null) _cells.Add(top_right);
-            var top_left = Cells.FirstOrDefault(c => c.Column == cell.Column - 1 && c.Line == cell.Line - 1);
-            if (top_left != null) _cells.Add(top_left);
-            var bottom_right = Cells.FirstOrDefault(c => c.Column == cell.Column + 1 && c.Line == cell.Line + 1);
-            if (bottom_right != null) _cells.Add(bottom_right);
-            var bottom_left = Cells.FirstOrDefault(c => c.Column == cell.Column - 1 && c.Line == cell.Line + 1);
-            if (bottom_left != null) _cells.Add(bottom_left);
+            //This takes the current cell and adds i and k to the Line and Column
+            //so we can find the adjacent cells
+            for(int i = -1; i < 2; i++)
+            {
+                for (int k = -1; k < 2; k++)
+                {
+                    //Ignore itself
+                    if(i == 0 && k == 0)
+                    {
+                        continue;
+                    }
+
+                    //This line searches for the adjacent cell, if the cell does not exist, the linq expression returns null
+                    var neighbor = Cells.FirstOrDefault(c => ((int)c.Line == (int)cell.Line + i) && ((int)c.Column == (int)cell.Column + k));
+                    if(neighbor != null)
+                    {
+                        _cells.Add(neighbor);
+                    }
+                }
+            }
 
             return _cells;
         }

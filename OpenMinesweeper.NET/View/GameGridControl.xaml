@@ -17,16 +17,34 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <ToggleButton MinHeight="20" MinWidth="20" Command="{Binding Mark}" Grid.Row="{Binding Line}" Grid.Column="{Binding Column}" IsChecked="{Binding Visited, Mode=OneWay}" Content="{Binding Message}">
-                        <!--<ToggleButton.Style>
+                    <ToggleButton MinHeight="20" MinWidth="20" Command="{Binding Mark}" Grid.Row="{Binding Line}" Grid.Column="{Binding Column}" IsChecked="{Binding Visited, Mode=OneWay}">
+                        <ToggleButton.Style>
                             <Style TargetType="{x:Type ToggleButton}">
                                 <Style.Triggers>
-                                    <Trigger Property="IsChecked" Value="False">
-                                        <Setter Property="Content" Value="?"/>
+                                    <Trigger Property="IsChecked" Value="True">
+                                        <Setter Property="Background" Value="LightGreen"/>
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
-                        </ToggleButton.Style>-->
+                        </ToggleButton.Style>
+
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding Message}" FontSize="24">
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Visibility" Value="Hidden" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding HasMine}" Value="True">
+                                                <Setter Property="Foreground" Value="Red"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Clicked}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </StackPanel>
                     </ToggleButton>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
