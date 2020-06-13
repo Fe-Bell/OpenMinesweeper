@@ -29,6 +29,19 @@ namespace OpenMinesweeper.Core
         }
 
         /// <summary>
+        /// Creates a new game.
+        /// </summary>
+        /// <param name="power"></param>
+        /// <returns></returns>
+        public GameGrid NewGame(uint lineCount, uint columnCount)
+        {
+            GameGrid gg = new GameGrid();
+            gg.Load(lineCount, columnCount);
+
+            return gg;
+        }
+
+        /// <summary>
         /// Saves the current game to a database.
         /// </summary>
         /// <param name="gameGrid"></param>

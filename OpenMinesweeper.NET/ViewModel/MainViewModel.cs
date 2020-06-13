@@ -66,6 +66,14 @@ namespace OpenMinesweeper.NET.ViewModel
                         }
                     }
                 }
+                else if (message.Message == "NewGame")
+                {
+                    GameGrid gameGrid = message.ExtendedData as GameGrid;
+                    if (gameGrid != null)
+                    {
+                        GameGridVM.Load(gameGrid);
+                    }
+                }
             }
         }
 

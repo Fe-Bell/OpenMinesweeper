@@ -14,7 +14,7 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_Game">
-                <MenuItem Header="_New" Command="{Binding NewGame}" />
+                <MenuItem x:Name="NewGameMenuItem" Header="_New" Click="NewGameMenuItem_Click" />
                 <MenuItem x:Name="LoadMenuItem" Header="_Open" Click="LoadMenuItem_Click" />
                 <MenuItem x:Name="SaveMenuItem" Header="_Save" Click="SaveMenuItem_Click" />
                 <Separator />

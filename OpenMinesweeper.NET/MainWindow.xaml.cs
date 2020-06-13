@@ -24,19 +24,30 @@ namespace OpenMinesweeper.NET
     public partial class MainWindow : Window
     {
         GameStatesWindow gameStatesWindow = null;
+        NewGameWindow newGameWindow = null;
 
         public MainWindow()
         {
             InitializeComponent();
 
+            newGameWindow = new NewGameWindow();
             gameStatesWindow = new GameStatesWindow();
 
             (DataContext as MainViewModel).OnGameOver += MainWindow_OnGameOver;
             (DataContext as MainViewModel).OnGameWon += MainWindow_OnGameWon;
 
             ViewModelLocator.LoadGameStateVM.PropertyChanged += LoadGameStateVM_PropertyChanged;
+            ViewModelLocator.NewGameVM.PropertyChanged += NewGameVM_PropertyChanged;
 
             Closing += MainWindow_Closing;
+        }
+
+        private void NewGameVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "NewGame")
+            {
+                newGameWindow.Hide();
+            }
         }
 
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -57,7 +68,7 @@ namespace OpenMinesweeper.NET
             var rc = MessageBox.Show("GAME WON!\nContinue?", "OpenMinesweeper", MessageBoxButton.YesNo);
             if (rc == MessageBoxResult.Yes)
             {
-                (DataContext as MainViewModel).NewGame.Execute(null);
+                newGameWindow.Show();
             }
             else
             {
@@ -70,7 +81,7 @@ namespace OpenMinesweeper.NET
             var rc = MessageBox.Show("GAME OVER!\nContinue?", "OpenMinesweeper", MessageBoxButton.YesNo);
             if(rc == MessageBoxResult.Yes)
             {
-                (DataContext as MainViewModel).NewGame.Execute(null);
+                newGameWindow.Show();
             }
             else
             {
@@ -112,6 +123,11 @@ namespace OpenMinesweeper.NET
                 (gameStatesWindow.DataContext as LoadGameStateViewModel).UpdateGameStates(openFileDialog.FileName);
                 gameStatesWindow.Show();
             }
+        }
+
+        private void NewGameMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            newGameWindow.Show();
         }
     }
 }

@@ -47,5 +47,36 @@ namespace OpenMinesweeper.Core
                 }
             }
         }
+
+        /// <summary>
+        /// Populates a collection of cells.
+        /// </summary>
+        /// <param name="lineCount"></param>
+        /// <param name="columnCount"></param>
+        public void Load(uint lineCount, uint columnCount)
+        {
+            //Finds out the number of itens per line and column
+            ColumnCount = columnCount;
+            LineCount = lineCount;
+
+            //If Cells is already populated, clears its contents.
+            if (Cells.Count != 0)
+            {
+                Cells.Clear();
+            }
+
+            //Uses a randomizer to create the table of cells
+            Random random = new Random();
+            for (uint line = 0; line < LineCount; line++)
+            {
+                for (uint column = 0; column < ColumnCount; column++)
+                {
+                    bool occupied = random.NextDouble() > 0.5;
+                    var cell = new Cell(line, column, occupied);
+
+                    Cells.Add(cell);
+                }
+            }
+        }
     }
 }
