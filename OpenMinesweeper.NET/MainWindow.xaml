@@ -10,6 +10,7 @@
         WindowStyle="SingleBorderWindow"
         ResizeMode="NoResize"
         DataContext="{Binding MainVM, Source={StaticResource Locator}}"
+       
         Title="OpenMinesweeper" Height="500" Width="500">
     <DockPanel>
         <Menu DockPanel.Dock="Top">

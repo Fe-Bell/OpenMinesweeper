@@ -12,6 +12,7 @@
     <DockPanel LastChildFill="True">
         <StackPanel DockPanel.Dock="Top">
             <TextBlock Text="{Binding ProductDetails}" HorizontalAlignment="Center" />
+            <!--<Image Source="/Resources/OpenMineSweeper.png" Width="60" Height="60" />-->
         </StackPanel>
         <TabControl DockPanel.Dock="Bottom">
             <TabItem Header="Authors">
