@@ -44,6 +44,8 @@ namespace OpenMinesweeper.NET.ViewModel
             }
         }
 
+        public event EventHandler OnNewGame = null;
+
         public NewGameViewModel(MinesweeperCore core)
         {
             this.core = core;
@@ -59,7 +61,7 @@ namespace OpenMinesweeper.NET.ViewModel
             {
                 //Checks if it is a valid number
                 uint number = 0;
-                if(!uint.TryParse(ColumnCount, out number))
+                if(!uint.TryParse(ColumnCount, out number) || number == 0)
                 {
                     ColumnCount = "1";
                 }
@@ -69,7 +71,7 @@ namespace OpenMinesweeper.NET.ViewModel
             {
                 //Checks if it is a valid number
                 uint number = 0;
-                if (!uint.TryParse(LineCount, out number))
+                if (!uint.TryParse(LineCount, out number) || number == 0)
                 {
                     LineCount = "1";
                 }
@@ -80,15 +82,15 @@ namespace OpenMinesweeper.NET.ViewModel
         public void PlayGameExecute()
         {
             uint column_count = 0;
-            if (!uint.TryParse(ColumnCount, out column_count)) return;
+            if (!uint.TryParse(ColumnCount, out column_count) || column_count == 0) return;
 
             uint line_count = 0;
-            if (!uint.TryParse(LineCount, out line_count)) return;
+            if (!uint.TryParse(LineCount, out line_count) || line_count == 0) return;
 
             var gameGrid = core.NewGame(line_count, column_count);
             if(gameGrid != null)
             {
-                RaisePropertyChanged("NewGame");
+                OnNewGame?.Invoke(this, null);
                 Messenger.Default.Send(new SystemMessage(this, typeof(MainViewModel), "NewGame", gameGrid));
             }
         }

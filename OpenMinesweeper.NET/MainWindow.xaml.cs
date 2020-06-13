@@ -30,37 +30,22 @@ namespace OpenMinesweeper.NET
         {
             InitializeComponent();
 
-            newGameWindow = new NewGameWindow();
-            gameStatesWindow = new GameStatesWindow();
-
-            (DataContext as MainViewModel).OnGameOver += MainWindow_OnGameOver;
-            (DataContext as MainViewModel).OnGameWon += MainWindow_OnGameWon;
-
-            ViewModelLocator.LoadGameStateVM.PropertyChanged += LoadGameStateVM_PropertyChanged;
-            ViewModelLocator.NewGameVM.PropertyChanged += NewGameVM_PropertyChanged;
-
-            Closing += MainWindow_Closing;
+            ViewModelLocator.MainVM.OnGameOver += MainWindow_OnGameOver;
+            ViewModelLocator.MainVM.OnGameWon += MainWindow_OnGameWon;
+            ViewModelLocator.LoadGameStateVM.OnGameLoad += LoadGameStateVM_OnGameLoad;
+            ViewModelLocator.NewGameVM.OnNewGame += NewGameVM_OnNewGame;
         }
 
-        private void NewGameVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "NewGame")
-            {
-                newGameWindow.Hide();
-            }
-        }
-
-        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void LoadGameStateVM_OnGameLoad(object sender, EventArgs e)
         {
             gameStatesWindow.Close();
+            gameStatesWindow = null;
         }
 
-        private void LoadGameStateVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void NewGameVM_OnNewGame(object sender, EventArgs e)
         {
-            if(e.PropertyName == "LoadedGameState")
-            {
-                gameStatesWindow.Hide();
-            }
+            newGameWindow.Close();
+            newGameWindow = null;
         }
 
         private void MainWindow_OnGameWon(object sender, EventArgs e)
@@ -68,6 +53,7 @@ namespace OpenMinesweeper.NET
             var rc = MessageBox.Show("GAME WON!\nContinue?", "OpenMinesweeper", MessageBoxButton.YesNo);
             if (rc == MessageBoxResult.Yes)
             {
+                newGameWindow = new NewGameWindow();
                 newGameWindow.Show();
             }
             else
@@ -81,6 +67,7 @@ namespace OpenMinesweeper.NET
             var rc = MessageBox.Show("GAME OVER!\nContinue?", "OpenMinesweeper", MessageBoxButton.YesNo);
             if(rc == MessageBoxResult.Yes)
             {
+                newGameWindow = new NewGameWindow();
                 newGameWindow.Show();
             }
             else
@@ -120,14 +107,17 @@ namespace OpenMinesweeper.NET
 
             if (openFileDialog.ShowDialog() == true)
             {
-                (gameStatesWindow.DataContext as LoadGameStateViewModel).UpdateGameStates(openFileDialog.FileName);
-                gameStatesWindow.Show();
+                ViewModelLocator.LoadGameStateVM.UpdateGameStates(openFileDialog.FileName);
+
+                gameStatesWindow = new GameStatesWindow();
+                gameStatesWindow.ShowDialog();
             }
         }
 
         private void NewGameMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            newGameWindow.Show();
+            newGameWindow = new NewGameWindow();
+            newGameWindow.ShowDialog();
         }
     }
 }

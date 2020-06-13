@@ -21,11 +21,11 @@
 
             <StackPanel>
                 <TextBlock Text="Lines" HorizontalAlignment="Center" />
-                <TextBox Text="{Binding LineCount}" />
+                <TextBox Text="{Binding LineCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
             <StackPanel Grid.Column="2">
                 <TextBlock Text="Columns" HorizontalAlignment="Center" />
-                <TextBox Text="{Binding ColumnCount}" />
+                <TextBox Text="{Binding ColumnCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
         </Grid>
     </DockPanel>   

@@ -37,6 +37,8 @@ namespace OpenMinesweeper.NET.ViewModel
             }
         }
 
+        public event EventHandler OnGameLoad = null;
+
         public LoadGameStateViewModel(MinesweeperCore core)
         {
             this.core = core;
@@ -59,7 +61,7 @@ namespace OpenMinesweeper.NET.ViewModel
         {
             if(SelectedGameState != null)
             {
-                RaisePropertyChanged("LoadedGameState");
+                OnGameLoad?.Invoke(this, null);
                 Messenger.Default.Send(new SystemMessage(this, typeof(MainViewModel), "LoadedGameState", SelectedGameState));
             }
         }
