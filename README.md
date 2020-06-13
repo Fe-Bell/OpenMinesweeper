@@ -5,6 +5,8 @@ Currently, this application is divided in the following projects:
 * OpenMinesweeper.Core
 
   Contains some core game logic, such as creating the cells/mines for the player. This was created using .NET Standard 2.0. This project is cross-platform.
+  
+  For data persistency, the core uses [ReflectXMLDB](https://github.com/Fe-Bell/ReflectXMLDB), an XML-based database library written by the same author of this project.
 
 * OpenMinesweeper.NET
 
@@ -12,10 +14,13 @@ Currently, this application is divided in the following projects:
 
 # Build requirements
 * [Visual Studio 2019 Community](https://visualstudio.microsoft.com/) or higher
-* .NET Core 3.1+
+* .NET Core 3.1+ or higher
+
+# For players only
+If you are only looking to play the game, make sure to have the runtime of .NET Core 3.1 (or higher) installed on your machine.
 
 # How to play
-1. Select "Game" in the menu strip, then "New".
+1. Select "Game" in the menu strip, then "New". Select the size of the game grid and click "Play".
 2. Click the cells inside the window. Once a cell is clicked, it will reveal the number of adjacent cells that contain mines.
 3. Avoid all mines to win the game.
 
