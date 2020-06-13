@@ -119,5 +119,11 @@ namespace OpenMinesweeper.NET
             newGameWindow = new NewGameWindow();
             newGameWindow.ShowDialog();
         }
+
+        private void AboutMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            AboutWindow aboutWindow = new AboutWindow();
+            aboutWindow.ShowDialog();
+        }
     }
 }

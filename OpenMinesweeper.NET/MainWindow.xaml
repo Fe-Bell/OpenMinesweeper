@@ -20,6 +20,9 @@
                 <Separator />
                 <MenuItem x:Name="ExitMenuItem" Header="_Exit" Click="ExitMenuItem_Click"  />
             </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem x:Name="AboutMenuItem" Header="_About" Click="AboutMenuItem_Click" />
+            </MenuItem>
         </Menu>
 
         <views:GameGridControl DataContext="{Binding GameGridVM}" />

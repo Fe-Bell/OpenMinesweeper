@@ -12,6 +12,7 @@ namespace OpenMinesweeper.NET.ViewModel
         public static MainViewModel MainVM => SimpleIoc.Default.GetInstance<MainViewModel>();
         public static LoadGameStateViewModel LoadGameStateVM => SimpleIoc.Default.GetInstance<LoadGameStateViewModel>();
         public static NewGameViewModel NewGameVM => SimpleIoc.Default.GetInstance<NewGameViewModel>();
+        public static AboutViewModel AboutVM => SimpleIoc.Default.GetInstance<AboutViewModel>();
 
         static ViewModelLocator()
         {
@@ -19,6 +20,7 @@ namespace OpenMinesweeper.NET.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<LoadGameStateViewModel>();
             SimpleIoc.Default.Register<NewGameViewModel>();
+            SimpleIoc.Default.Register<AboutViewModel>();
         }
     }
 }
