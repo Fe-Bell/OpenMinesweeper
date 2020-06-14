@@ -8,13 +8,13 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
-        Icon="pack://application:,,,/OpenMinesweeper.NET;component/Resources/OpenMineSweeper.png"
+        Icon="pack://application:,,,/OpenMinesweeper.NET;component/Resources/Mine.png"
         DataContext="{Binding AboutVM, Source={StaticResource Locator}}"
         Title="About" Height="400" Width="400">
     <DockPanel LastChildFill="True">
         <StackPanel DockPanel.Dock="Top">
             <TextBlock Text="{Binding ProductDetails}" HorizontalAlignment="Center" />
-            <Image Source="pack://application:,,,/OpenMinesweeper.NET;component/Resources/OpenMineSweeper.png" Width="60" Height="60" />
+            <Image Source="pack://application:,,,/OpenMinesweeper.NET;component/Resources/Mine.png" Width="60" Height="60" />
         </StackPanel>
         <TabControl DockPanel.Dock="Bottom" Background="{DynamicResource SystemBaseLowColorBrush}">
             <TabControl.Resources>

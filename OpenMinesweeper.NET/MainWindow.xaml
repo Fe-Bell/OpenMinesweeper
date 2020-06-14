@@ -12,7 +12,7 @@
         ResizeMode="NoResize"
         DataContext="{Binding MainVM, Source={StaticResource Locator}}"
         Title="OpenMinesweeper" Height="500" Width="500" 
-        Icon="pack://application:,,,/OpenMinesweeper.NET;component/Resources/OpenMineSweeper.png">
+        Icon="pack://application:,,,/OpenMinesweeper.NET;component/Resources/Mine.png">
     <DockPanel>
         <Menu DockPanel.Dock="Top" Style="{StaticResource AcrylicMenuStyle}">
             <MenuItem Header="_Game">

@@ -63,9 +63,9 @@ namespace OpenMinesweeper.NET.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] OpenMineSweeper {
+        internal static byte[] Mine {
             get {
-                object obj = ResourceManager.GetObject("OpenMineSweeper", resourceCulture);
+                object obj = ResourceManager.GetObject("Mine", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace OpenMinesweeper.NET.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] OpenMineSweeper1 {
+        internal static byte[] Mine1 {
             get {
-                object obj = ResourceManager.GetObject("OpenMineSweeper1", resourceCulture);
+                object obj = ResourceManager.GetObject("Mine1", resourceCulture);
                 return ((byte[])(obj));
             }
         }

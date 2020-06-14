@@ -9,7 +9,7 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow"
         ResizeMode="NoResize"
-        Icon="pack://application:,,,/OpenMinesweeper.NET;component/Resources/OpenMineSweeper.png"
+        Icon="pack://application:,,,/OpenMinesweeper.NET;component/Resources/Mine.png"
         DataContext="{Binding LoadGameStateVM, Source={StaticResource Locator}}"
         Title="Load Game" Height="300" Width="200"
         fw:AcrylicWindow.Enabled="True"
