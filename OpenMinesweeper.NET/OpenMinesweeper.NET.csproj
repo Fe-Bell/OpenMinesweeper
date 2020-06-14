@@ -5,6 +5,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Resources\OpenMineSweeper.ico</ApplicationIcon>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
+    <Version>1.1.0.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -22,10 +25,11 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\OpenMineSweeper.ico" />
-    <EmbeddedResource Include="Resources\OpenMineSweeper.png" />
+    <Resource Include="Resources\OpenMineSweeper.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentWPF" Version="0.8.0" />
     <PackageReference Include="MvvmLightLibsStd10" Version="5.4.1.1" />
   </ItemGroup>
 

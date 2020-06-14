@@ -1,4 +1,5 @@
-﻿<Window x:Class="OpenMinesweeper.NET.GameStatesWindow"
+﻿<fw:AcrylicWindow x:Class="OpenMinesweeper.NET.GameStatesWindow"
+        xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,11 +9,14 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow"
         ResizeMode="NoResize"
+        Icon="pack://application:,,,/OpenMinesweeper.NET;component/Resources/OpenMineSweeper.png"
         DataContext="{Binding LoadGameStateVM, Source={StaticResource Locator}}"
-        Title="Load Game" Height="300" Width="200">
+        Title="Load Game" Height="300" Width="200"
+        fw:AcrylicWindow.Enabled="True"
+        fw:PointerTracker.Enabled="True">
     <DockPanel LastChildFill="True" Margin="2">
-        <Button x:Name="LoadButton" Content="Load Selected" Command="{Binding LoadGameState}" DockPanel.Dock="Bottom" />
-        <ListBox ItemsSource="{Binding GameStates}" SelectedValue="{Binding SelectedGameState}" DockPanel.Dock="Top">
+        <Button x:Name="LoadButton" Content="Load Selected" Command="{Binding LoadGameState}" DockPanel.Dock="Bottom" Style="{StaticResource ButtonRevealStyle}"/>
+        <ListBox ItemsSource="{Binding GameStates}" SelectedValue="{Binding SelectedGameState}" DockPanel.Dock="Top" Style="{StaticResource ListBoxRevealStyle}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -34,4 +38,4 @@
             </ListBox.ItemTemplate>
         </ListBox>
     </DockPanel>
-</Window>
+</fw:AcrylicWindow>
