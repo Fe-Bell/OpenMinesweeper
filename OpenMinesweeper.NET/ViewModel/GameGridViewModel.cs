@@ -58,6 +58,20 @@ namespace OpenMinesweeper.NET.ViewModel
             }
         }
 
+        private bool gameOver = false;
+        /// <summary>
+        /// If the game is over.
+        /// </summary>
+        public bool GameOver
+        {
+            get => gameOver;
+            set
+            {
+                gameOver = value;
+                RaisePropertyChanged();
+            }
+        }
+
         /// <summary>
         /// Creates a new instance of GameGridViewModel. 
         /// </summary>
@@ -72,6 +86,8 @@ namespace OpenMinesweeper.NET.ViewModel
         /// <param name="gameGrid">A base game grid from the OpenMinesweeper.Core</param>
         public void Load(GameGrid gameGrid)
         {
+            GameOver = false;
+
             //Detach property changed event handling.
             Cells.ForEach(c => c.PropertyChanged -= Cell_PropertyChanged);
 
@@ -167,6 +183,7 @@ namespace OpenMinesweeper.NET.ViewModel
                 {
                     cell.Message = "#";
                     //Game Over
+                    GameOver = true;
                     Messenger.Default.Send(new SystemMessage(this, typeof(MainViewModel), "GameOver"));
                 }
                 //Otherwise, go through its neighbors and continue

@@ -3,10 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-          
+             xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
              xmlns:local="clr-namespace:OpenMinesweeper.NET.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Style>
+        <Style TargetType="{x:Type UserControl}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding GameOver}" Value="False">
+                    <Setter Property="IsEnabled" Value="True"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding GameOver}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Style>
+    
     <Grid>
         <ItemsControl ItemsSource="{Binding Cells}">
             <ItemsControl.ItemsPanel>
@@ -17,26 +30,24 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <ToggleButton MinHeight="20" MinWidth="20" Padding="-8,-8" Command="{Binding Mark}" Grid.Row="{Binding Line}" Grid.Column="{Binding Column}" IsChecked="{Binding Visited, Mode=OneWay}">
-                        <ToggleButton.Style>
-                            <Style TargetType="{x:Type ToggleButton}">
-                                <Style.Triggers>
-                                    <Trigger Property="IsChecked" Value="True">
-                                        <Setter Property="Background" Value="LightGreen"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ToggleButton.Style>
+                    <Grid>
+                        <Border MinHeight="20" MinWidth="20">
+                            <Border.Style>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Visited, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                            <Setter Property="Background" Value="{x:Static fw:AccentColors.ImmersiveSystemAccentLight2Brush}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
 
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <TextBlock Text="{Binding Message}" FontSize="20">
+                            <TextBlock Text="{Binding Message}" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{DynamicResource SystemAltHighColorBrush}">
                                 <TextBlock.Style>
                                     <Style TargetType="{x:Type TextBlock}">
                                         <Setter Property="Visibility" Value="Hidden" />
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding HasMine}" Value="True">
-                                                <Setter Property="Foreground" Value="Red"/>
-                                            </DataTrigger>
                                             <DataTrigger Binding="{Binding Clicked}" Value="True">
                                                 <Setter Property="Visibility" Value="Visible"/>
                                             </DataTrigger>
@@ -44,8 +55,47 @@
                                     </Style>
                                 </TextBlock.Style>
                             </TextBlock>
+                        </Border>
+                        
+                        <ToggleButton x:Name="cellToggleBtn" Margin="2" MinHeight="20" MinWidth="20" Command="{Binding Mark}" Grid.Row="{Binding Line}" Grid.Column="{Binding Column}" IsChecked="{Binding Visited, Mode=OneWay}">
+                            <ToggleButton.Style>
+                                <Style TargetType="{x:Type ToggleButton}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsChecked" Value="True">
+                                            <Setter Property="Visibility" Value="Hidden"></Setter>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ToggleButton.Style>
+                        </ToggleButton>
+
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <StackPanel.Style>
+                                <Style TargetType="{x:Type StackPanel}">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding DataContext.GameOver, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <Image Source="pack://application:,,,/OpenMinesweeper.NET;component/Resources/OpenMineSweeper.png"                                        
+                                       MaxHeight="15" 
+                                       MaxWidth="15">
+                                <Image.Style>
+                                    <Style TargetType="{x:Type Image}">
+                                        <Setter Property="Visibility" Value="Hidden" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding HasMine}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
                         </StackPanel>
-                    </ToggleButton>
+                    </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>     

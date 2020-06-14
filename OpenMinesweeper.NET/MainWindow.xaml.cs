@@ -56,10 +56,6 @@ namespace OpenMinesweeper.NET
                 newGameWindow = new NewGameWindow();
                 newGameWindow.ShowDialog();
             }
-            else
-            {
-                ExitGame();
-            }
         }
 
         private void MainWindow_OnGameOver(object sender, EventArgs e)
@@ -69,10 +65,6 @@ namespace OpenMinesweeper.NET
             {
                 newGameWindow = new NewGameWindow();
                 newGameWindow.ShowDialog();
-            }
-            else
-            {
-                ExitGame();
             }
         }
 
