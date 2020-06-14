@@ -12,7 +12,7 @@ Currently, this application is divided in the following projects:
 
   Produces a WPF GUI application written with .NET Core 3.1. This makes use of the excellent [MVVMLight](https://github.com/lbugnion/mvvmlight), a cross-platform MVVM toolkit. This project is Windows-only.
 
-![sample1](Art/Samples/sample1.png)
+![sample1](Art/Samples/sample1.png=300x300)
 
 # Build requirements
 * [Visual Studio 2019 Community](https://visualstudio.microsoft.com/) or higher
