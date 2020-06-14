@@ -3,7 +3,8 @@
 </p>
 
 # OpenMinesweeper
-This is an open source minesweeper game developed as a simple use case for [WPF](https://en.wikipedia.org/wiki/Windows_Presentation_Foundation) and [MVVM](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel).
+This is an open source minesweeper game developed as a simple use case for [WPF](https://en.wikipedia.org/wiki/Windows_Presentation_Foundation) and [MVVM](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel). 
+The game binaries can both be found at the [releases page](https://github.com/Fe-Bell/OpenMinesweeper/releases) and [Itch.io](https://fe-bell.itch.io/openminesweeper).
 
 Currently, this application is divided in the following projects:
 * OpenMinesweeper.Core
