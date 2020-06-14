@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="Art/Samples/Logo.png">
+  <img src="Art/Logo.png">
 </p>
 
 # OpenMinesweeper
