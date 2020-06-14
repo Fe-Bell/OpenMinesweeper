@@ -15,7 +15,7 @@ namespace OpenMinesweeper.NET
     /// <summary>
     /// Interaction logic for GameStatesWindow.xaml
     /// </summary>
-    public partial class GameStatesWindow : Window
+    public partial class GameStatesWindow
     {
         public GameStatesWindow()
         {

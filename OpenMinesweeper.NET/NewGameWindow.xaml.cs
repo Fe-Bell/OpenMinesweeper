@@ -15,7 +15,7 @@ namespace OpenMinesweeper.NET
     /// <summary>
     /// Interaction logic for NewGameWindow.xaml
     /// </summary>
-    public partial class NewGameWindow : Window
+    public partial class NewGameWindow
     {
         public NewGameWindow()
         {

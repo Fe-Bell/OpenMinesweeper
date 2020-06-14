@@ -21,7 +21,7 @@ namespace OpenMinesweeper.NET
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         GameStatesWindow gameStatesWindow = null;
         NewGameWindow newGameWindow = null;
@@ -56,10 +56,6 @@ namespace OpenMinesweeper.NET
                 newGameWindow = new NewGameWindow();
                 newGameWindow.ShowDialog();
             }
-            else
-            {
-                ExitGame();
-            }
         }
 
         private void MainWindow_OnGameOver(object sender, EventArgs e)
@@ -69,10 +65,6 @@ namespace OpenMinesweeper.NET
             {
                 newGameWindow = new NewGameWindow();
                 newGameWindow.ShowDialog();
-            }
-            else
-            {
-                ExitGame();
             }
         }
 
