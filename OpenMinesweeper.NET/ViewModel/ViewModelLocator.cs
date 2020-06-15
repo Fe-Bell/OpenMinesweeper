@@ -8,6 +8,8 @@ namespace OpenMinesweeper.NET.ViewModel
     /// </summary>
     public class ViewModelLocator
     {
+        #region Properties
+
         /// <summary>
         /// Returns an instance of the MinesweeperCore.
         /// </summary>
@@ -28,6 +30,8 @@ namespace OpenMinesweeper.NET.ViewModel
         /// Returns an instance of the AboutViewModel.
         /// </summary>
         public static AboutViewModel AboutVM => SimpleIoc.Default.GetInstance<AboutViewModel>();
+
+        #endregion
 
         /// <summary>
         /// Static constructor.

@@ -4,16 +4,23 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace OpenMinesweeper.Core
 {
+    /// <summary>
+    /// The core of the minesweeper game.
+    /// </summary>
     public class MinesweeperCore
     {
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public MinesweeperCore()
         {
 
         }
+
+        #region MEthods
 
         /// <summary>
         /// Creates a new game.
@@ -98,26 +105,6 @@ namespace OpenMinesweeper.Core
         }
 
         /// <summary>
-        /// Converts a GameGrid tp a GameState.
-        /// </summary>
-        /// <param name="gameGrid"></param>
-        /// <returns></returns>
-        private GameState ToGameState(GameGrid gameGrid, string state)
-        {
-            string line_count = Convert.ToString(gameGrid.LineCount, 2).PadLeft(8, '0');
-            string column_count = Convert.ToString(gameGrid.ColumnCount, 2).PadLeft(8, '0');
-            string cells = string.Empty;
-            gameGrid.Cells.ForEach(cell => cells += cell.Occupied ? "1" : "0");
-
-            GameState gameState = new GameState();
-            gameState.State = state;
-            gameState.Grid = line_count + column_count + cells;
-            gameState.Date = string.Format("{0}_{1}", DateTime.Now.ToShortDateString(), DateTime.Now.ToShortTimeString());
-
-            return gameState;
-        }
-
-        /// <summary>
         /// Converts a GameState to a GameGrid.
         /// </summary>
         /// <param name="gameState"></param>
@@ -155,5 +142,27 @@ namespace OpenMinesweeper.Core
 
             return gameGrid;
         }
+
+        /// <summary>
+        /// Converts a GameGrid tp a GameState.
+        /// </summary>
+        /// <param name="gameGrid"></param>
+        /// <returns></returns>
+        private GameState ToGameState(GameGrid gameGrid, string state)
+        {
+            string line_count = Convert.ToString(gameGrid.LineCount, 2).PadLeft(8, '0');
+            string column_count = Convert.ToString(gameGrid.ColumnCount, 2).PadLeft(8, '0');
+            string cells = string.Empty;
+            gameGrid.Cells.ForEach(cell => cells += cell.Occupied ? "1" : "0");
+
+            GameState gameState = new GameState();
+            gameState.State = state;
+            gameState.Grid = line_count + column_count + cells;
+            gameState.Date = string.Format("{0}_{1}", DateTime.Now.ToShortDateString(), DateTime.Now.ToShortTimeString());
+
+            return gameState;
+        }
+
+        #endregion
     }
 }

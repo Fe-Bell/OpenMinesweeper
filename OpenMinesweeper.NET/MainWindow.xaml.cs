@@ -1,20 +1,6 @@
 ﻿using OpenMinesweeper.NET.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.IO;
-using OpenMinesweeper.Core;
 
 namespace OpenMinesweeper.NET
 {
@@ -23,9 +9,16 @@ namespace OpenMinesweeper.NET
     /// </summary>
     public partial class MainWindow
     {
+        #region Fields
+
         GameStatesWindow gameStatesWindow = null;
         NewGameWindow newGameWindow = null;
 
+        #endregion
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -36,18 +29,40 @@ namespace OpenMinesweeper.NET
             ViewModelLocator.NewGameVM.OnNewGame += NewGameVM_OnNewGame;
         }
 
+        #region Methods
+
+        /// <summary>
+        /// Kills the application.
+        /// </summary>
+        private void ExitGame()
+        {
+            Application.Current.Shutdown();
+        }
+        /// <summary>
+        /// Event handler.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LoadGameStateVM_OnGameLoad(object sender, EventArgs e)
         {
             gameStatesWindow.Close();
             gameStatesWindow = null;
         }
-
+        /// <summary>
+        /// Event handler.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NewGameVM_OnNewGame(object sender, EventArgs e)
         {
             newGameWindow.Close();
             newGameWindow = null;
         }
-
+        /// <summary>
+        /// Event handler.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MainWindow_OnGameWon(object sender, EventArgs e)
         {
             var rc = MessageBox.Show("CONGRATULATIONS, YOU WON!\nContinue?", "OpenMinesweeper", MessageBoxButton.YesNo);
@@ -57,7 +72,11 @@ namespace OpenMinesweeper.NET
                 newGameWindow.ShowDialog();
             }
         }
-
+        /// <summary>
+        /// Event handler.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MainWindow_OnGameOver(object sender, EventArgs e)
         {
             var rc = MessageBox.Show("GAME OVER!\nContinue?", "OpenMinesweeper", MessageBoxButton.YesNo);
@@ -67,17 +86,20 @@ namespace OpenMinesweeper.NET
                 newGameWindow.ShowDialog();
             }
         }
-
+        /// <summary>
+        /// Event handler.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
         {
             ExitGame();
         }
-
-        private void ExitGame()
-        {
-            Application.Current.Shutdown();
-        }
-
+        /// <summary>
+        /// Event handler.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SaveMenuItem_Click(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
@@ -90,7 +112,11 @@ namespace OpenMinesweeper.NET
                 (DataContext as MainViewModel).SaveGame.Execute(parameter);
             }
         }
-
+        /// <summary>
+        /// Event handler.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LoadMenuItem_Click(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
@@ -105,17 +131,27 @@ namespace OpenMinesweeper.NET
                 gameStatesWindow.ShowDialog();
             }
         }
-
+        /// <summary>
+        /// Event handler.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NewGameMenuItem_Click(object sender, RoutedEventArgs e)
         {
             newGameWindow = new NewGameWindow();
             newGameWindow.ShowDialog();
         }
-
+        /// <summary>
+        /// Event handler.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AboutMenuItem_Click(object sender, RoutedEventArgs e)
         {
             AboutWindow aboutWindow = new AboutWindow();
             aboutWindow.ShowDialog();
         }
+
+        #endregion
     }
 }
