@@ -16,6 +16,8 @@ namespace OpenMinesweeper.NET.ViewModel
     /// </summary>
     public class GameGridViewModel : ObservableObject
     {
+        #region Properties
+
         private ObservableCollection<CellViewModel> cells = new ObservableCollection<CellViewModel>();
         /// <summary>
         /// A collection of cells in the current game.
@@ -72,6 +74,8 @@ namespace OpenMinesweeper.NET.ViewModel
             }
         }
 
+        #endregion
+
         /// <summary>
         /// Creates a new instance of GameGridViewModel. 
         /// </summary>
@@ -79,6 +83,8 @@ namespace OpenMinesweeper.NET.ViewModel
         {
             Cells = new ObservableCollection<CellViewModel>();
         }
+
+        #region Methods
 
         /// <summary>
         /// Reloads the GameGridViewModel with a new game grid.
@@ -234,5 +240,7 @@ namespace OpenMinesweeper.NET.ViewModel
 
             return _cells;
         }
+
+        #endregion
     }
 }

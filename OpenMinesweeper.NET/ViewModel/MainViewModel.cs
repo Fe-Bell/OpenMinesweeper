@@ -10,8 +10,13 @@ using System.Windows.Input;
 
 namespace OpenMinesweeper.NET.ViewModel
 {
+    /// <summary>
+    /// Defines the main data model of the game.
+    /// </summary>
     public class MainViewModel : ViewModelBase
     {
+        #region Properties
+
         private MinesweeperCore core = null;
 
         private GameGridViewModel gameGridVM = null;
@@ -25,9 +30,25 @@ namespace OpenMinesweeper.NET.ViewModel
             }
         }
 
+        #endregion
+
+        #region Events
+
+        /// <summary>
+        /// Event raised once the game is over.
+        /// </summary>
         public event EventHandler OnGameOver;
+        /// <summary>
+        /// Event raised once the player wins the game.
+        /// </summary>
         public event EventHandler OnGameWon;
 
+        #endregion
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="core"></param>
         public MainViewModel(MinesweeperCore core)
         {
             this.core = core;
@@ -40,6 +61,12 @@ namespace OpenMinesweeper.NET.ViewModel
             Messenger.Default.Register<SystemMessage>(this, (action) => OnSystemMessageReceived(action));
         }
 
+        #region Methods
+
+        /// <summary>
+        /// Handles messages sent over MVVMLight messaging.
+        /// </summary>
+        /// <param name="message"></param>
         private void OnSystemMessageReceived(SystemMessage message)
         {
             if(message.Target == GetType())
@@ -76,6 +103,8 @@ namespace OpenMinesweeper.NET.ViewModel
                 }
             }
         }
+
+        #endregion
 
         #region Commands
 

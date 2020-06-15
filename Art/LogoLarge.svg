@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="630"
+   height="500"
+   viewBox="0 0 166.68751 132.29167"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="LogoLarge.svg"
+   inkscape:export-filename="C:\Programming\Online\GitHub\OpenMinesweeper\Art\Logo.png"
+   inkscape:export-xdpi="100"
+   inkscape:export-ydpi="100">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.9899495"
+     inkscape:cx="144.82148"
+     inkscape:cy="189.36149"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     units="px" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-47.29994,-64.206478)">
+    <g
+       id="g824"
+       transform="matrix(1.0887555,0,0,1.0887555,-12.773087,-11.862878)">
+      <path
+         transform="matrix(2.8227145,-0.7637138,0.7637138,2.8227145,-217.67903,-320.32737)"
+         d="m 88.715797,187.94837 -8.078305,-2.3085 2.308497,8.07831 -5.841769,-6.03837 -2.039935,8.15026 -2.039935,-8.15026 -5.841769,6.03837 2.308498,-8.07831 -8.078305,2.3085 6.03837,-5.84177 -8.150266,-2.03993 8.150266,-2.03994 -6.03837,-5.84177 8.078305,2.3085 -2.308498,-8.07831 5.841769,6.03837 2.039935,-8.15026 2.039935,8.15026 5.841769,-6.03837 -2.308497,8.07831 8.078305,-2.3085 -6.03837,5.84177 8.150266,2.03994 -8.150266,2.03993 z"
+         inkscape:randomized="0"
+         inkscape:rounded="0"
+         inkscape:flatsided="false"
+         sodipodi:arg2="0.78539816"
+         sodipodi:arg1="0.52359878"
+         sodipodi:r2="7.8817043"
+         sodipodi:r1="15.763408"
+         sodipodi:cy="180.06667"
+         sodipodi:cx="75.064285"
+         sodipodi:sides="12"
+         id="path4520-7"
+         style="opacity:1;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.29248768;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         sodipodi:type="star" />
+      <path
+         d="m 167.338,151.18274 -21.07381,-6.02216 6.02216,21.07381 -15.23937,-15.75225 -5.32156,21.26154 -5.32156,-21.26154 -15.23937,15.75225 6.02215,-21.07381 -21.073801,6.02216 15.752241,-15.23937 -21.261526,-5.32156 21.261526,-5.32156 -15.752241,-15.23937 21.073801,6.02216 -6.02215,-21.073808 15.23937,15.752248 5.32156,-21.261533 5.32156,21.261533 15.23937,-15.752248 -6.02216,21.073808 21.07381,-6.02216 -15.75225,15.23937 21.26153,5.32156 -21.26153,5.32156 z"
+         inkscape:randomized="0"
+         inkscape:rounded="0"
+         inkscape:flatsided="false"
+         sodipodi:arg2="0.78539816"
+         sodipodi:arg1="0.52359878"
+         sodipodi:r2="20.56093"
+         sodipodi:r1="41.121864"
+         sodipodi:cy="130.62181"
+         sodipodi:cx="131.72542"
+         sodipodi:sides="12"
+         id="path4520"
+         style="opacity:1;fill:#ff7f2a;fill-opacity:1;stroke:none;stroke-width:0.76301003;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         sodipodi:type="star" />
+      <path
+         transform="matrix(0.51368664,-0.14562227,0.14562227,0.51368664,56.163427,69.62969)"
+         d="m 157.66981,178.90893 -31.16745,-8.90657 8.90657,31.16745 L 112.87041,177.87277 105,209.31786 97.12959,177.87277 74.59107,201.16981 83.49764,170.00236 52.330188,178.90893 75.627229,156.37041 44.18214,148.5 75.627229,140.62959 52.330189,118.09107 83.497639,126.99764 74.59107,95.830188 97.12959,119.12723 105,87.68214 l 7.87041,31.44509 22.53852,-23.297041 -8.90657,31.167451 31.16745,-8.90657 -23.29704,22.53852 31.44509,7.87041 -31.44509,7.87041 z"
+         inkscape:randomized="0"
+         inkscape:rounded="0"
+         inkscape:flatsided="false"
+         sodipodi:arg2="0.78539816"
+         sodipodi:arg1="0.52359878"
+         sodipodi:r2="30.40893"
+         sodipodi:r1="60.81786"
+         sodipodi:cy="148.5"
+         sodipodi:cx="105"
+         sodipodi:sides="12"
+         id="path4520-5"
+         style="opacity:1;fill:#ffff00;fill-opacity:1;stroke:none;stroke-width:1.12846613;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         sodipodi:type="star" />
+      <text
+         id="text817"
+         y="134.70311"
+         x="56.291439"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15.30481052px;line-height:1.25;font-family:'Sci Fied';-inkscape-font-specification:'Sci Fied';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:0.71741295"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Sci Fied 2002';-inkscape-font-specification:'Sci Fied 2002, ';stroke:#ffffff;stroke-width:0.71741295"
+           y="134.70311"
+           x="56.291439"
+           id="tspan815"
+           sodipodi:role="line">OpenMinesweeper</tspan></text>
+    </g>
+  </g>
+</svg>

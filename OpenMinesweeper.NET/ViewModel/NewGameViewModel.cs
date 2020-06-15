@@ -12,11 +12,29 @@ using System.Windows.Shapes;
 
 namespace OpenMinesweeper.NET.ViewModel
 {
+    /// <summary>
+    /// Provides data for creating a new game.
+    /// </summary>
     public class NewGameViewModel :ViewModelBase
     {
-        public const uint MAX_LINES = 20u;
-        public const uint MIN_LINES = 0u;
+        #region Constants
 
+        /// <summary>
+        /// Maximun grid size.
+        /// </summary>
+        public const uint MAX_LINES = 20u;
+        /// <summary>
+        /// Minimum grid size.
+        /// </summary>
+        public const uint MIN_LINES = 1u;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Internal instance of the MinesweeperCore.
+        /// </summary>
         private MinesweeperCore core = null;
 
         private string lineCount = null;
@@ -47,8 +65,18 @@ namespace OpenMinesweeper.NET.ViewModel
             }
         }
 
+        #endregion
+
+        #region Events
+
         public event EventHandler OnNewGame = null;
 
+        #endregion
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="core"></param>
         public NewGameViewModel(MinesweeperCore core)
         {
             this.core = core;
@@ -58,6 +86,8 @@ namespace OpenMinesweeper.NET.ViewModel
             PropertyChanged += NewGameViewModel_PropertyChanged;
         }
 
+        #region Private methods
+
         private void NewGameViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if(e.PropertyName == "ColumnCount")
@@ -66,9 +96,9 @@ namespace OpenMinesweeper.NET.ViewModel
                 {
                     //Checks if it is a valid number
                     uint number = 0;
-                    if (uint.TryParse(ColumnCount, out number) || number == MIN_LINES || number > MAX_LINES)
+                    if (uint.TryParse(ColumnCount, out number) || number < MIN_LINES || number > MAX_LINES)
                     {
-                        if (number == MIN_LINES)
+                        if (number < MIN_LINES)
                         {
                             ColumnCount = "1";
                         }
@@ -94,9 +124,9 @@ namespace OpenMinesweeper.NET.ViewModel
                 {
                     //Checks if it is a valid number
                     uint number = 0;
-                    if (uint.TryParse(LineCount, out number) || number == MIN_LINES || number > MAX_LINES)
+                    if (uint.TryParse(LineCount, out number) || number < MIN_LINES || number > MAX_LINES)
                     {
-                        if (number == MIN_LINES)
+                        if (number < MIN_LINES)
                         {
                             LineCount = "1";
                         }
@@ -117,7 +147,17 @@ namespace OpenMinesweeper.NET.ViewModel
             }
         }
 
+        #endregion
+
+        #region Commands
+
+        /// <summary>
+        /// Starts a new game.
+        /// </summary>
         public ICommand PlayGame { get; private set; }
+        /// <summary>
+        /// Logic for the StartGame command. 
+        /// </summary>
         public void PlayGameExecute()
         {
             uint column_count = 0;
@@ -133,5 +173,7 @@ namespace OpenMinesweeper.NET.ViewModel
                 Messenger.Default.Send(new SystemMessage(this, typeof(MainViewModel), "NewGame", gameGrid));
             }
         }
+
+        #endregion
     }
 }
