@@ -10,9 +10,14 @@
         WindowStartupLocation="CenterScreen"
         Icon="pack://application:,,,/OpenMinesweeper.NET;component/Resources/Mine.png"
         DataContext="{Binding NewGameVM, Source={StaticResource Locator}}"
-        Title="New Game" Height="120" Width="150">
+        Title="{Binding MainVM.LanguageContent[NewGameStr], Source={StaticResource Locator}}" Height="120" Width="150">
     <DockPanel Margin="2" LastChildFill="True">
-        <Button DockPanel.Dock="Bottom" Content="PLAY" Command="{Binding PlayGame}" Style="{StaticResource ButtonRevealStyle}"/>
+        <Button DockPanel.Dock="Bottom" 
+                Content="{Binding MainVM.LanguageContent[PlayStr], Source={StaticResource Locator}}" 
+                Typography.Capitals="SmallCaps"
+                FontSize="14"
+                Command="{Binding PlayGame}" 
+                Style="{StaticResource ButtonRevealStyle}"/>
 
         <Grid>
             <Grid.ColumnDefinitions>
@@ -22,11 +27,11 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel>
-                <TextBlock Text="Lines" HorizontalAlignment="Center" />
+                <TextBlock Text="{Binding MainVM.LanguageContent[LinesStr], Source={StaticResource Locator}}" HorizontalAlignment="Center" />
                 <TextBox Text="{Binding LineCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center" Style="{StaticResource TextBoxRevealStyle}"/>
             </StackPanel>
             <StackPanel Grid.Column="2">
-                <TextBlock Text="Columns" HorizontalAlignment="Center" />
+                <TextBlock Text="{Binding MainVM.LanguageContent[ColumnsStr], Source={StaticResource Locator}}" HorizontalAlignment="Center" />
                 <TextBox Text="{Binding ColumnCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center" Style="{StaticResource TextBoxRevealStyle}" />
             </StackPanel>
         </Grid>

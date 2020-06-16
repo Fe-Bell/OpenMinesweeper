@@ -1,5 +1,5 @@
 @echo off
-SET RELEASEVERSION="1.1.0.0"
+SET RELEASEVERSION="1.2.0.0"
 SET CONFIGURATION="Release"
 SET FRAMEWORK="netcoreapp3.1"
 SET DROPLOCATION="%~dp0bin\Deploy"
@@ -15,6 +15,7 @@ xcopy /y /f "%~dp0bin\%CONFIGURATION%\%FRAMEWORK%\*.exe" "%~dp0bin\%CONFIGURATIO
 xcopy /y /f "%~dp0bin\%CONFIGURATION%\%FRAMEWORK%\*.dll" "%~dp0bin\%CONFIGURATION%\%ZIPNAME%"
 xcopy /y /f "%~dp0bin\%CONFIGURATION%\%FRAMEWORK%\OpenMinesweeper.NET.runtimeconfig.json" "%~dp0bin\%CONFIGURATION%\%ZIPNAME%"
 xcopy /y /f "%~dp0Doc\READMEFIRST.txt" "%~dp0bin\%CONFIGURATION%\%ZIPNAME%"
+xcopy /y /f "%~dp0Files\sw.config" "%~dp0bin\%CONFIGURATION%\%ZIPNAME%"
 
 if not exist "%DROPLOCATION%" mkdir "%DROPLOCATION%"
 start "" /WAIT %SEVENZIP% a -t7z "%DROPLOCATION%\%ZIPNAME%.7z" "%~dp0bin\%CONFIGURATION%\%ZIPNAME%\*.*"
