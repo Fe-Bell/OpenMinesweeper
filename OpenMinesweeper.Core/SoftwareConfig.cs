@@ -20,6 +20,9 @@ namespace OpenMinesweeper.Core
         /// </summary>
         public List<GeneralResources.Resource> Resources { get; set; }
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public SoftwareConfig()
         {
             CurrentSettings = new List<KVPItem>();
@@ -31,6 +34,9 @@ namespace OpenMinesweeper.Core
         /// </summary>
         public static class GeneralResources
         {
+            /// <summary>
+            /// Defines a base ressource.
+            /// </summary>
             [XmlInclude(typeof(EnumResource))]
             [XmlInclude(typeof(FileResource))]
             [XmlInclude(typeof(LanguageResource))]
@@ -63,7 +69,9 @@ namespace OpenMinesweeper.Core
 
                 public Dictionary<string, string> GetDictionary() => Content.ToDictionary(x => x.Key, y => y.Value);
             }
-
+            /// <summary>
+            /// Defines a file resource.
+            /// </summary>
             public class FileResource : Resource
             {
                 public enum DataSource_e
@@ -77,12 +85,16 @@ namespace OpenMinesweeper.Core
                 [XmlAttribute]
                 public DataSource_e DataSource { get; set; }
             }
-
+            /// <summary>
+            /// Defines a text resource.
+            /// </summary>
             public class TextResource : Resource
             {
 
             }
-
+            /// <summary>
+            /// Defines an enumeration resource.
+            /// </summary>
             public class EnumResource : TextResource
             {
                 [XmlAttribute]
@@ -113,7 +125,9 @@ namespace OpenMinesweeper.Core
                     }
                 }
             }
-
+            /// <summary>
+            /// Defines a language resource.
+            /// </summary>
             public class LanguageResource : TextResource
             {
                 [XmlAttribute]
@@ -139,7 +153,9 @@ namespace OpenMinesweeper.Core
                     }
                 }
             }
-
+            /// <summary>
+            /// Defines an object resource.
+            /// </summary>
             public class ObjectResource : Resource
             {
                 [XmlAttribute]

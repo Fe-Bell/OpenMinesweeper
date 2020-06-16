@@ -23,10 +23,14 @@ namespace OpenMinesweeper.Core
 
         #endregion
 
+        #region Properties
+
         /// <summary>
         /// The full path to the configuration file.
         /// </summary>
         public string FilePath { get; private set; }
+
+        #endregion
 
         #region Events
 
@@ -164,6 +168,12 @@ namespace OpenMinesweeper.Core
 
             return dict;
         }
+        /// <summary>
+        /// Updates a Key-Value pair in the 'CurrentConfiguration'.
+        /// </summary>
+        /// <param name="key">The key string of the pair.</param>
+        /// <param name="value">The value string of the pair.</param>
+        /// <returns></returns>
         public bool UpdateCurrentResource(string key, string value)
         {
             var swConfig = GetFullConfig();
