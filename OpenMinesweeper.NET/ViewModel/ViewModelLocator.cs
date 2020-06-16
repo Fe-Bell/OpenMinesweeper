@@ -1,5 +1,7 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
 using OpenMinesweeper.Core;
+using System;
+using System.IO;
 
 namespace OpenMinesweeper.NET.ViewModel
 {
@@ -38,7 +40,8 @@ namespace OpenMinesweeper.NET.ViewModel
         /// </summary>
         static ViewModelLocator()
         {
-            SimpleIoc.Default.Register<MinesweeperCore>();
+            string config_path = Path.Combine(Environment.CurrentDirectory, SoftwareConfigLoader.DEFAULTCFGFILENAME);
+            SimpleIoc.Default.Register(() => new MinesweeperCore(config_path));
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<LoadGameStateViewModel>();
             SimpleIoc.Default.Register<NewGameViewModel>();

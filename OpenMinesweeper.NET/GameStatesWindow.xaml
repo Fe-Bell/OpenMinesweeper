@@ -11,12 +11,18 @@
         ResizeMode="NoResize"
         Icon="pack://application:,,,/OpenMinesweeper.NET;component/Resources/Mine.png"
         DataContext="{Binding LoadGameStateVM, Source={StaticResource Locator}}"
-        Title="Load Game" Height="300" Width="200"
+        Title="{Binding MainVM.LanguageContent[LoadGameStr], Source={StaticResource Locator}}" Height="300" Width="200"
         fw:AcrylicWindow.Enabled="True"
         fw:PointerTracker.Enabled="True">
     <DockPanel LastChildFill="True" Margin="2">
-        <Button x:Name="LoadButton" Content="Load Selected" Command="{Binding LoadGameState}" DockPanel.Dock="Bottom" Style="{StaticResource ButtonRevealStyle}"/>
-        <ListBox ItemsSource="{Binding GameStates}" SelectedValue="{Binding SelectedGameState}" DockPanel.Dock="Top" Style="{StaticResource ListBoxRevealStyle}">
+        <Button x:Name="LoadButton" 
+                Content="{Binding MainVM.LanguageContent[LoadGameStr], Source={StaticResource Locator}}" 
+                Command="{Binding LoadGameState}" 
+                Typography.Capitals="SmallCaps"
+                FontSize="14"
+                DockPanel.Dock="Bottom" 
+                Style="{StaticResource ButtonRevealStyle}"/>
+        <ListBox ItemsSource="{Binding GameStates}" SelectedValue="{Binding SelectedGameState}" DockPanel.Dock="Top" Foreground="{DynamicResource SystemBaseHighColorBrush}" Style="{StaticResource ListBoxRevealStyle}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>

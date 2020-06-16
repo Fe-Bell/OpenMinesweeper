@@ -74,6 +74,20 @@ namespace OpenMinesweeper.NET.ViewModel
             }
         }
 
+        private bool gameWon = false;
+        /// <summary>
+        /// If the game was won.
+        /// </summary>
+        public bool GameWon
+        {
+            get => gameWon;
+            set
+            {
+                gameWon = value;
+                RaisePropertyChanged();
+            }
+        }
+
         #endregion
 
         /// <summary>
@@ -93,6 +107,7 @@ namespace OpenMinesweeper.NET.ViewModel
         public void Load(GameGrid gameGrid)
         {
             GameOver = false;
+            GameWon = false;
 
             //Detach property changed event handling.
             Cells.ForEach(c => c.PropertyChanged -= Cell_PropertyChanged);
@@ -203,6 +218,7 @@ namespace OpenMinesweeper.NET.ViewModel
                 if (Cells.Where(c => !c.HasMine).All(c => c.Visited))
                 {
                     //Game Won
+                    GameWon = true;
                     Messenger.Default.Send(new SystemMessage(this, typeof(MainViewModel), "GameWon"));
                 }
             }

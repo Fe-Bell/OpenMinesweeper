@@ -2,11 +2,15 @@
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using OpenMinesweeper.Core;
+using OpenMinesweeper.Core.Generic;
 using OpenMinesweeper.NET.Utils;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Windows.Input;
+using OpenMinesweeper.Core.Utils;
 
 namespace OpenMinesweeper.NET.ViewModel
 {
@@ -26,6 +30,28 @@ namespace OpenMinesweeper.NET.ViewModel
             set
             {
                 gameGridVM = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private ObservableCollection<SoftwareConfig.GeneralResources.LanguageResource> languages;
+        public ObservableCollection<SoftwareConfig.GeneralResources.LanguageResource> Languages
+        {
+            get => languages;
+            set
+            {
+                languages = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private ObservableDictionary<string, string> languageContent;
+        public ObservableDictionary<string, string> LanguageContent
+        {
+            get => languageContent;
+            set
+            {
+                languageContent = value;
                 RaisePropertyChanged();
             }
         }
@@ -57,6 +83,18 @@ namespace OpenMinesweeper.NET.ViewModel
 
             NewGame = new RelayCommand(() => NewGameExecute(), () => true);
             SaveGame = new RelayCommand<object>((obj) => SaveGameExecute(obj), (obj) => true);
+            LoadGame = new RelayCommand<object>((obj) => LoadGameExecute(obj), (obj) => true);
+            ChangeLanguage = new RelayCommand<object>((obj) => ChangeLanguageExecute(obj), (obj) => true);
+
+            Languages = new ObservableCollection<SoftwareConfig.GeneralResources.LanguageResource>();
+            LanguageContent = new ObservableDictionary<string, string>();
+
+            //Loads the supported languages.
+            if (LoadLanguages())
+            {
+                //Loads the current language strings.
+                LoadLanguageStrings();
+            }
 
             Messenger.Default.Register<SystemMessage>(this, (action) => OnSystemMessageReceived(action));
         }
@@ -100,6 +138,50 @@ namespace OpenMinesweeper.NET.ViewModel
                     {
                         GameGridVM.Load(gameGrid);
                     }
+                }
+            }
+        }
+
+        private bool LoadLanguages()
+        {
+            //Set Languages
+            var _languages = core.ConfigurationLoader.
+                GetFullConfig().
+                Resources.
+                Where(x => x is SoftwareConfig.GeneralResources.LanguageResource).
+                Select(x => x as SoftwareConfig.GeneralResources.LanguageResource);
+            if (_languages != null && _languages.Any())
+            {
+                Languages = new ObservableCollection<SoftwareConfig.GeneralResources.LanguageResource>(_languages);
+                return true;
+            }
+
+            return false;
+        }
+
+        private void LoadLanguageStrings()
+        {
+            var currentLang = core.ConfigurationLoader.GetFullConfig().CurrentSettings.FirstOrDefault(x => x.Key == "LanguageKey");
+            if (currentLang != null)
+            {
+                var _langRes = core.ConfigurationLoader.
+                                GetFullConfig().
+                                Resources.
+                                FirstOrDefault(x => (x is SoftwareConfig.GeneralResources.LanguageResource) && (x as SoftwareConfig.GeneralResources.LanguageResource).Key == currentLang.Value);
+                if (_langRes != null && _langRes.Content != null && _langRes.Content.Any())
+                {
+                    LanguageContent = _langRes.Content.ToObservableDictionary(x => x.Key, x => x.Value);
+                }
+            }
+            else
+            {
+                var _langRes = core.ConfigurationLoader.
+                               GetFullConfig().
+                               Resources.
+                               FirstOrDefault(x => (x is SoftwareConfig.GeneralResources.LanguageResource) && (x as SoftwareConfig.GeneralResources.LanguageResource).LanguageName == Languages.FirstOrDefault().LanguageName);
+                if (_langRes != null && _langRes.Content != null && _langRes.Content.Any())
+                {
+                    LanguageContent = _langRes.Content.ToObservableDictionary(x => x.Key, x => x.Value);
                 }
             }
         }
@@ -159,6 +241,23 @@ namespace OpenMinesweeper.NET.ViewModel
             //if (gameGrid is null) return;
 
             //core.SaveGame(gameGrid, current_state, folder, filename);
+        }
+
+        public ICommand ChangeLanguage { get; private set; }
+        private void ChangeLanguageExecute(object parameters)
+        {
+            if (parameters is null) return;
+
+            //Gets the selected language
+            var language = parameters as SoftwareConfig.GeneralResources.LanguageResource;
+            if(language != null)
+            {
+                if(core.ConfigurationLoader.UpdateCurrentResource(SoftwareConfigLoader.KEY_LANGUAGE, language.Key))
+                {
+                    //Update all strings in the game
+                    LanguageContent = language.Content.ToObservableDictionary(x => x.Key, x => x.Value);
+                }
+            }
         }
 
         #endregion

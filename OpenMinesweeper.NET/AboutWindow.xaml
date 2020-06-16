@@ -10,7 +10,7 @@
         ResizeMode="NoResize"
         Icon="pack://application:,,,/OpenMinesweeper.NET;component/Resources/Mine.png"
         DataContext="{Binding AboutVM, Source={StaticResource Locator}}"
-        Title="About" Height="400" Width="400">
+        Title="{Binding MainVM.LanguageContent[AboutStr], Source={StaticResource Locator}}" Height="400" Width="400">
     <DockPanel LastChildFill="True">
         <StackPanel DockPanel.Dock="Top">
             <TextBlock Text="{Binding ProductDetails}" HorizontalAlignment="Center" />
@@ -34,8 +34,8 @@
                     </Style.Triggers>
                 </Style>
             </TabControl.Resources>
-            
-            <TabItem Header="Authors" >
+
+            <TabItem Header="{Binding MainVM.LanguageContent[AuthorsStr], Source={StaticResource Locator}}" >
                 <StackPanel>
                     <RichTextBox VerticalScrollBarVisibility="Auto" 
                                  Foreground="{DynamicResource SystemBaseHighColorBrush}"
@@ -46,7 +46,21 @@
                     </RichTextBox>
                 </StackPanel>
             </TabItem>
-            <TabItem Header="License">                            
+            <TabItem Header="{Binding MainVM.LanguageContent[TranslationsStr], Source={StaticResource Locator}}" >
+                <StackPanel>
+                    <RichTextBox VerticalScrollBarVisibility="Auto" 
+                                 Foreground="{DynamicResource SystemBaseHighColorBrush}"
+                                 Background="{DynamicResource SystemBaseLowColorBrush}">
+                        <FlowDocument>
+                            <Paragraph>
+                                EN-US, PT-BR - Felipe Bellini (Felipe.Bellini@outlook.com), 2020
+                                <!--<LineBreak />-->
+                            </Paragraph>
+                        </FlowDocument>
+                    </RichTextBox>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="{Binding MainVM.LanguageContent[LicenseStr], Source={StaticResource Locator}}">                            
                 <RichTextBox VerticalScrollBarVisibility="Auto"
                              Foreground="{DynamicResource SystemBaseHighColorBrush}"
                              Background="{DynamicResource SystemBaseLowColorBrush}">

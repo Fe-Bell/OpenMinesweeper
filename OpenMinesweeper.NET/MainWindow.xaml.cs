@@ -65,7 +65,7 @@ namespace OpenMinesweeper.NET
         /// <param name="e"></param>
         private void MainWindow_OnGameWon(object sender, EventArgs e)
         {
-            var rc = MessageBox.Show("CONGRATULATIONS, YOU WON!\nContinue?", "OpenMinesweeper", MessageBoxButton.YesNo);
+            var rc = MessageBox.Show(ViewModelLocator.MainVM.LanguageContent["GameWonMsgStr"], "OpenMinesweeper", MessageBoxButton.YesNo);
             if (rc == MessageBoxResult.Yes)
             {
                 newGameWindow = new NewGameWindow();
@@ -79,7 +79,7 @@ namespace OpenMinesweeper.NET
         /// <param name="e"></param>
         private void MainWindow_OnGameOver(object sender, EventArgs e)
         {
-            var rc = MessageBox.Show("GAME OVER!\nContinue?", "OpenMinesweeper", MessageBoxButton.YesNo);
+            var rc = MessageBox.Show(ViewModelLocator.MainVM.LanguageContent["GameOverMsgStr"], "OpenMinesweeper", MessageBoxButton.YesNo);
             if(rc == MessageBoxResult.Yes)
             {
                 newGameWindow = new NewGameWindow();

@@ -13,14 +13,45 @@ namespace OpenMinesweeper.Core
     public class MinesweeperCore
     {
         /// <summary>
+        /// An internal instance of the configuration loaderr. 
+        /// </summary>
+        public SoftwareConfigLoader ConfigurationLoader { get; private set; }
+
+        /// <summary>
+        /// Gets/Sets the current path of the configuration file.
+        /// </summary>
+        public string ConfigurationFilePath
+        {
+            get
+            {
+                return ConfigurationLoader != null ? ConfigurationLoader.FilePath : string.Empty;
+            }
+            set
+            {
+                if (ConfigurationLoader != null)
+                {
+                    ConfigurationLoader.Initialize(value);
+                }
+            }
+        }
+
+        /// <summary>
         /// Constructor.
         /// </summary>
         public MinesweeperCore()
         {
-
+            ConfigurationLoader = new SoftwareConfigLoader();
+        }
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="filePath"></param>
+        public MinesweeperCore(string filePath) : this()
+        {
+            ConfigurationFilePath = filePath;
         }
 
-        #region MEthods
+        #region Methods
 
         /// <summary>
         /// Creates a new game.
