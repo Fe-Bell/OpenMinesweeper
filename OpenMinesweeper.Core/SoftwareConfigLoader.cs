@@ -65,9 +65,19 @@ namespace OpenMinesweeper.Core
             //If file does not exist, then create.
             if (!File.Exists(FilePath))
             {
-                var softwareConfig = new SoftwareConfig();
-                var xml = softwareConfig.SerializeXML();
-                xml.Save(FilePath);
+                var defaultConfig = Properties.Resources.ResourceManager.GetString("DEFAULT_CFG");
+                //Writes the default configuration file to storage
+                if(!string.IsNullOrEmpty(defaultConfig))
+                {
+                    File.WriteAllText(filePath, defaultConfig);
+                }
+                //Creates an empty config file
+                else
+                {
+                    var softwareConfig = new SoftwareConfig();
+                    var xml = softwareConfig.SerializeXML();
+                    xml.Save(FilePath);
+                }
             }
         }
         /// <summary>

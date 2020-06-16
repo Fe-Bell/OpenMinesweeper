@@ -52,8 +52,4 @@
     </EmbeddedResource>
   </ItemGroup>
 
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="if not exist &quot;$(OutDir)sw.config&quot; xcopy /y &quot;$(SolutionDir)Files\sw.config&quot; &quot;$(OutDir)&quot;" />
-  </Target>
-
 </Project>

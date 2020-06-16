@@ -15,6 +15,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\sw.config" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\sw.config" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="ReflectXMLDB" Version="1.0.0" />
   </ItemGroup>
 
