@@ -32,11 +32,11 @@ namespace OpenMinesweeper.NET.ViewModel
             }
         }
 
-        private uint lineNumber = 0;
+        private int lineNumber = 0;
         /// <summary>
         /// The number of rows in the grid.
         /// </summary>
-        public uint LineNumber
+        public int LineNumber
         {
             get => lineNumber;
             set
@@ -46,11 +46,11 @@ namespace OpenMinesweeper.NET.ViewModel
             }
         }
 
-        private uint columnNumber = 0;
+        private int columnNumber = 0;
         /// <summary>
         /// The number of columns of the grid.
         /// </summary>
-        public uint ColumnNumber
+        public int ColumnNumber
         {
             get => columnNumber;
             set
@@ -183,7 +183,7 @@ namespace OpenMinesweeper.NET.ViewModel
             GameGrid gameGrid = new GameGrid();
             gameGrid.ColumnCount = ColumnNumber;
             gameGrid.LineCount = LineNumber;
-            gameGrid.Cells = new List<Cell>(Cells.Select(c => new Cell(c.Line, c.Column, c.HasMine)));
+            gameGrid.Cells = new List<Cell>(Cells.Select(c => new Cell(c.Line, c.Column, c.HasMine, false)));
 
             return gameGrid;
         }

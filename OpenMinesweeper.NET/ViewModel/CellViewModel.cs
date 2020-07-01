@@ -14,11 +14,11 @@ namespace OpenMinesweeper.NET.ViewModel
     {
         #region Properties
 
-        private uint line = 0;
+        private int line = 0;
         /// <summary>
         /// The line position of the cell.
         /// </summary>
-        public uint Line
+        public int Line
         {
             get => line;
             set
@@ -28,11 +28,11 @@ namespace OpenMinesweeper.NET.ViewModel
             }
         }
 
-        private uint column = 0;
+        private int column = 0;
         /// <summary>
         /// The column position of the cell.
         /// </summary>
-        public uint Column
+        public int Column
         {
             get => column;
             set
@@ -118,7 +118,7 @@ namespace OpenMinesweeper.NET.ViewModel
         /// <param name="line"></param>
         /// <param name="column"></param>
         /// <param name="occupied"></param>
-        public CellViewModel(uint line, uint column, bool occupied) : this()
+        public CellViewModel(int line, int column, bool occupied) : this()
         {
             Line = line;
             Column = column;

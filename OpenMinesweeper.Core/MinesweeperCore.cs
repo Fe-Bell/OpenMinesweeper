@@ -1,4 +1,5 @@
-﻿using OpenMinesweeper.Core.Utils;
+﻿using OpenMinesweeper.Core.Interface;
+using OpenMinesweeper.Core.Utils;
 using ReflectXMLDB;
 using System;
 using System.Collections.Generic;
@@ -58,10 +59,11 @@ namespace OpenMinesweeper.Core
         /// </summary>
         /// <param name="power"></param>
         /// <returns></returns>
-        public GameGrid NewGame(uint power)
+        public GameGrid NewRandomGridGame(int lineCount, int columnCount)
         {
-            GameGrid gg = new GameGrid();
-            gg.Load(power);
+            IGridGenerator gridGenerator = new RandomGridGenerator();
+
+            GameGrid gg = gridGenerator.Generate<GameGrid>(lineCount, columnCount);
 
             return gg;
         }
@@ -71,10 +73,11 @@ namespace OpenMinesweeper.Core
         /// </summary>
         /// <param name="power"></param>
         /// <returns></returns>
-        public GameGrid NewGame(uint lineCount, uint columnCount)
+        public GameGrid NewMazeGame(int lineCount, int columnCount)
         {
-            GameGrid gg = new GameGrid();
-            gg.Load(lineCount, columnCount);
+            IGridGenerator gridGenerator = new MazeGenerator();
+
+            GameGrid gg = gridGenerator.Generate<GameGrid>(lineCount, columnCount);
 
             return gg;
         }
@@ -148,16 +151,16 @@ namespace OpenMinesweeper.Core
             state = gameState.State;
 
             GameGrid gameGrid = new GameGrid();
-            gameGrid.LineCount = Convert.ToUInt32(line_count_str, 2);
-            gameGrid.ColumnCount = Convert.ToUInt32(column_count_str, 2);
+            gameGrid.LineCount = Convert.ToInt32(line_count_str, 2);
+            gameGrid.ColumnCount = Convert.ToInt32(column_count_str, 2);
              
             //Translate cells binary string to 2D array of cells.
-            uint ln = 0, col = 0;
+            int ln = 0, col = 0;
             foreach(var c in cells_str)
             {
                 Cell cell = new Cell();
                 cell.Occupied = c != '0';
-                cell.Position = new Tuple<uint, uint>(ln, col);
+                cell.Position = new Tuple<int, int>(ln, col);
                 gameGrid.Cells.Add(cell);
 
                 if (col < gameGrid.ColumnCount - 1)

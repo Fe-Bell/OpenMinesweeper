@@ -160,13 +160,13 @@ namespace OpenMinesweeper.NET.ViewModel
         /// </summary>
         public void PlayGameExecute()
         {
-            uint column_count = 0;
-            if (!uint.TryParse(ColumnCount, out column_count) || column_count == 0 || column_count > MAX_LINES) return;
+            int column_count = 0;
+            if (!int.TryParse(ColumnCount, out column_count) || column_count == 0 || column_count > MAX_LINES) return;
 
-            uint line_count = 0;
-            if (!uint.TryParse(LineCount, out line_count) || line_count == 0 || line_count > MAX_LINES) return;
+            int line_count = 0;
+            if (!int.TryParse(LineCount, out line_count) || line_count == 0 || line_count > MAX_LINES) return;
 
-            var gameGrid = core.NewGame(line_count, column_count);
+            var gameGrid = core.NewRandomGridGame(line_count, column_count);
             if(gameGrid != null)
             {
                 OnNewGame?.Invoke(this, null);

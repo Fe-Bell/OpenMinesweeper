@@ -81,7 +81,6 @@ namespace OpenMinesweeper.NET.ViewModel
 
             GameGridVM = new GameGridViewModel();
 
-            NewGame = new RelayCommand(() => NewGameExecute(), () => true);
             SaveGame = new RelayCommand<object>((obj) => SaveGameExecute(obj), (obj) => true);
             LoadGame = new RelayCommand<object>((obj) => LoadGameExecute(obj), (obj) => true);
             ChangeLanguage = new RelayCommand<object>((obj) => ChangeLanguageExecute(obj), (obj) => true);
@@ -189,13 +188,6 @@ namespace OpenMinesweeper.NET.ViewModel
         #endregion
 
         #region Commands
-
-        public ICommand NewGame { get; private set; }
-        private void NewGameExecute()
-        {
-            var newGameGrid = core.NewGame(4);
-            GameGridVM.Load(newGameGrid);
-        }
 
         public ICommand SaveGame { get; private set; }
         private void SaveGameExecute(object parameters)
